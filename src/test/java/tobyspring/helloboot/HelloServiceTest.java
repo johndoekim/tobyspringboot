@@ -19,9 +19,19 @@ import java.lang.annotation.Target;
 @interface UnitTest{
 }
 public class HelloServiceTest {
-    @UnitTest
+    @Test
     void simpleHelloService(){
-        SimpleHelloService helloService = new SimpleHelloService();
+        SimpleHelloService helloService = new SimpleHelloService(new HelloRepository() {
+            @Override
+            public Hello findHello(String name) {
+                return null;
+            }
+
+            @Override
+            public void increaseCount(String name) {
+
+            }
+        });
 
         String ret = helloService.sayHello("Test");
 
